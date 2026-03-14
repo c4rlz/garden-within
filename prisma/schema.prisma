@@ -1,0 +1,67 @@
+// Inner Garden — Prisma schema
+// PostgreSQL. List fields use native array type for simplicity and good Prisma support.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ——— Seeds: daily structured reflections (one per day) ———
+model Seed {
+  id           String   @id @default(cuid())
+  date         DateTime @db.Date
+  energyLevel  Int?
+  tendingToday String[] @default([])
+  release      String[] @default([])
+  assumptions  String[] @default([])
+  bodyCheckIn  String[] @default([])
+  notes        String[] @default([])
+  tags         String[] @default([])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([date])
+  @@index([date])
+}
+
+// ——— Weeks: main reflection container (weekStart = Monday or Sunday, your choice) ———
+model Week {
+  id               String    @id @default(cuid())
+  weekStart        DateTime  @db.Date
+  strengthenedMe   String[]  @default([])
+  drainedMe        String[]  @default([])
+  patternsNoticed  String[]  @default([])
+  reflections      String[]  @default([])
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  blossoms         Blossom[]
+
+  @@unique([weekStart])
+  @@index([weekStart])
+}
+
+// ——— Blossoms: insights created from within a Week ———
+model Blossom {
+  id          String    @id @default(cuid())
+  weekId      String
+  week        Week      @relation(fields: [weekId], references: [id], onDelete: Cascade)
+  title       String
+  description String?
+  priority    Boolean   @default(false)
+  status      BlossomStatus @default(active)
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([weekId])
+  @@index([status])
+}
+
+enum BlossomStatus {
+  active
+  completed
+}
