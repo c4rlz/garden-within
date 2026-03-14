@@ -1,8 +1,35 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { createSeedSchema, updateSeedSchema } from "@/lib/validations";
+import { redirect } from "next/navigation";
+import {
+  createSeedSchema,
+  updateSeedSchema,
+  type CreateSeedInput,
+} from "@/lib/validations";
 import { seedService } from "@/lib/services";
+
+/** Creates today's seed if it doesn't exist, then redirects to edit it. */
+export async function ensureTodaySeed() {
+  const today = new Date();
+  const existing = await seedService.findByDate(today);
+  if (existing) {
+    redirect("/seeds/today");
+  }
+  const empty: CreateSeedInput = {
+    date: today,
+    tendingToday: [],
+    release: [],
+    assumptions: [],
+    bodyCheckIn: [],
+    notes: [],
+    tags: [],
+  };
+  await seedService.create(empty);
+  revalidatePath("/today");
+  revalidatePath("/seeds");
+  redirect("/seeds/today");
+}
 
 export async function createSeed(formData: FormData) {
   const raw = {
@@ -24,7 +51,7 @@ export async function createSeed(formData: FormData) {
   await seedService.create(parsed.data);
   revalidatePath("/seeds");
   revalidatePath("/today");
-  return { ok: true as const };
+  redirect("/seeds");
 }
 
 export async function updateSeed(

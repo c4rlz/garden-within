@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { createBlossomSchema, updateBlossomSchema } from "@/lib/validations";
 import { blossomService } from "@/lib/services";
 
@@ -18,7 +19,7 @@ export async function createBlossom(formData: FormData) {
   await blossomService.create(parsed.data);
   revalidatePath("/blossoms");
   revalidatePath(`/weeks/${parsed.data.weekId}`);
-  return { ok: true as const };
+  redirect("/blossoms");
 }
 
 export async function updateBlossom(id: string, formData: FormData) {

@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { createWeekSchema, updateWeekSchema } from "@/lib/validations";
 import { weekService } from "@/lib/services";
 
@@ -29,7 +30,7 @@ export async function createWeek(formData: FormData) {
   }
   await weekService.create(parsed.data);
   revalidatePath("/weeks");
-  return { ok: true as const };
+  redirect("/weeks");
 }
 
 export async function updateWeek(id: string, formData: FormData) {
