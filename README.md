@@ -29,6 +29,9 @@ A private personal reflection app: daily Seeds, weekly Weeks, and Blossoms (insi
 
 - `npm run dev` — development server
 - `npm run build` / `npm run start` — production
+- `npm run lint` — ESLint
+- `npm run test` — run tests (Vitest)
+- `npm run test:watch` — run tests in watch mode
 - `npm run db:generate` — regenerate Prisma client
 - `npm run db:push` — push schema to DB (no migration files)
 - `npm run db:migrate` — create and run migrations
