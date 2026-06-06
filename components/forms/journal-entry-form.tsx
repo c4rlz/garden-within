@@ -55,7 +55,11 @@ export function JournalEntryForm({
       </section>
 
       <div className="space-y-4 border-t border-border/40 pt-6">
-        <Button type="submit" variant="outline" className="bg-card/50">
+        <Button
+          type="submit"
+          variant="outline"
+          className="h-11 w-full bg-card/50 sm:w-auto"
+        >
           Keep this seed
         </Button>
 

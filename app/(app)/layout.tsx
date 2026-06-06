@@ -1,8 +1,8 @@
 import { AppSidebar } from "@/components/app-sidebar";
+import { AppMobileNav } from "@/components/app-mobile-nav";
 
 /**
- * Main app layout: sidebar + content. All routes under (app) share this.
- * Keeps the shell consistent so Today, Seeds, Weeks, Blossoms, Import feel like one app.
+ * Main app layout: sidebar (desktop) + bottom nav (mobile) + content.
  */
 export default function AppLayout({
   children,
@@ -10,11 +10,12 @@ export default function AppLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen min-h-[100dvh]">
       <AppSidebar />
-      <main className="flex-1 overflow-auto bg-background">
+      <main className="flex-1 overflow-auto bg-background pb-[calc(4.5rem+env(safe-area-inset-bottom))] md:pb-0">
         {children}
       </main>
+      <AppMobileNav />
     </div>
   );
 }

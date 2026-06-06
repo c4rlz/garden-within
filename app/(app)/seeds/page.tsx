@@ -23,7 +23,7 @@ export default async function SeedsPage() {
   const entries = await journalEntryService.list();
 
   return (
-    <div className="p-8">
+    <div className="px-6 py-8 sm:px-8 sm:py-10">
       <div className="mx-auto max-w-2xl space-y-6">
         <div className="space-y-1">
           <h1 className="text-2xl font-semibold text-foreground">Seeds</h1>
