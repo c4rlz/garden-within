@@ -10,10 +10,7 @@ function parseEntryFromFormData(formData: FormData) {
   return {
     date: formData.get("date") ?? undefined,
     body: formData.get("body") ?? "",
-    energy: parseStringArray(formData.get("energy")),
-    mood: parseStringArray(formData.get("mood")),
-    bodySensations: parseStringArray(formData.get("bodySensations")),
-    themes: parseStringArray(formData.get("themes")),
+    margins: parseStringArray(formData.get("margins")),
     cycleDayOverride: (() => {
       if (overrideRaw === "" || overrideRaw == null) return null;
       const n = Number(overrideRaw);
@@ -28,10 +25,10 @@ export async function saveJournalEntry(formData: FormData) {
   await journalEntryService.upsertForDate(date, {
     date,
     body: String(raw.body ?? ""),
-    energy: raw.energy,
-    mood: raw.mood,
-    bodySensations: raw.bodySensations,
-    themes: raw.themes,
+    energy: [],
+    mood: [],
+    bodySensations: [],
+    themes: raw.margins,
     cycleDayOverride: raw.cycleDayOverride,
   });
   revalidatePath("/today");

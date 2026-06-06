@@ -3,12 +3,11 @@ import {
   cycleSettingsService,
   journalEntryService,
 } from "@/lib/services";
-import { formatDateISO } from "@/lib/date";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { getCycleDayGuidance } from "@/lib/content/cycle-day-guidance";
+import { formatDateISO, formatJournalDate } from "@/lib/date";
 import { buttonVariants } from "@/components/ui/button";
-import { CycleContextCard } from "@/components/cycle-context-card";
+import { SeasonOpeningSpread } from "@/components/season-opening-spread";
 import { JournalEntryForm } from "@/components/forms/journal-entry-form";
-import { PhaseGuidanceCard } from "@/components/phase-guidance-card";
 import { journalEntryToFormData } from "@/lib/journal-entry-form-data";
 
 export const dynamic = "force-dynamic";
@@ -23,61 +22,59 @@ export default async function TodayPage() {
     entry?.cycleDayOverride
   );
 
+  const cycleLength = settings?.defaultCycleLength ?? 28;
+  const dayGuidance = getCycleDayGuidance(cycleContext.cycleDay, cycleLength);
+
   const formEntry = journalEntryToFormData(
     entry
       ? {
           date: todayISO,
           body: entry.body,
           energy: entry.energy,
-          mood: entry.mood,
           bodySensations: entry.bodySensations,
           themes: entry.themes,
+          mood: entry.mood,
           cycleDayOverride: entry.cycleDayOverride,
         }
       : { date: todayISO }
   );
 
   return (
-    <div className="px-6 py-10 sm:px-8">
-      <div className="mx-auto max-w-2xl space-y-10">
+    <div className="px-6 py-8 sm:px-8 sm:py-10">
+      <div className="mx-auto max-w-xl space-y-8">
         <header className="space-y-2">
-          <h1 className="text-2xl font-semibold tracking-tight text-foreground">
-            Today
+          <h1 className="font-serif text-2xl font-light tracking-tight text-foreground sm:text-3xl">
+            {formatJournalDate(today)}
           </h1>
-          <p className="max-w-prose text-sm leading-relaxed text-muted-foreground">
-            Plant today&apos;s seed — notice what&apos;s here, without trying to
-            change it.
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            Notice what&apos;s here. No need to change it.
           </p>
         </header>
 
         {!settings ? (
-          <Card className="shadow-none">
-            <CardHeader>
-              <CardTitle>Cycle settings needed</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3 text-muted-foreground">
-              <p className="text-sm leading-relaxed">
-                Add your cycle settings so each seed can be placed in your
-                season.
-              </p>
-              <Link href="/settings" className={buttonVariants()}>
-                Go to Settings
-              </Link>
-            </CardContent>
-          </Card>
+          <div className="space-y-3 text-sm leading-relaxed text-muted-foreground">
+            <p>
+              When you&apos;re ready, add your cycle in Settings so each seed
+              can rest in its season.
+            </p>
+            <Link href="/settings" className={buttonVariants({ variant: "outline", size: "sm" })}>
+              Settings
+            </Link>
+          </div>
         ) : (
-          <section className="space-y-4" aria-label="Cycle context">
-            <CycleContextCard
-              cycleDay={cycleContext.cycleDay}
-              cyclePhase={cycleContext.cyclePhase}
-            />
-            {cycleContext.cyclePhase && (
-              <PhaseGuidanceCard phase={cycleContext.cyclePhase} />
-            )}
-          </section>
+          <SeasonOpeningSpread
+            cycleDay={cycleContext.cycleDay}
+            cyclePhase={cycleContext.cyclePhase}
+            cycleLength={cycleLength}
+          />
         )}
 
-        <JournalEntryForm entry={formEntry} />
+        <JournalEntryForm
+          entry={formEntry}
+          journalPlaceholder={
+            dayGuidance?.journalPrompt ?? "What are you noticing today?"
+          }
+        />
       </div>
     </div>
   );

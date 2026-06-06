@@ -2,6 +2,7 @@ import Link from "next/link";
 import { journalEntryService } from "@/lib/services";
 import { formatPhaseLabel } from "@/lib/services/cycle-service";
 import { formatDateISO } from "@/lib/date";
+import { mergeEntryMargins } from "@/lib/journal-entry-form-data";
 import { Card, CardContent } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
 
@@ -44,11 +45,7 @@ export default async function SeedsPage() {
           <ul className="space-y-3">
             {entries.map((entry) => {
               const dateISO = formatDateISO(entry.date);
-              const tags = [
-                ...entry.energy,
-                ...entry.mood,
-                ...entry.bodySensations,
-              ];
+              const tags = mergeEntryMargins(entry);
               const snippet = tagSnippet(tags);
               return (
                 <li key={entry.id}>

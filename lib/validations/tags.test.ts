@@ -22,7 +22,7 @@ describe("normalizeTags", () => {
 });
 
 describe("normalizeJournalTagArrays", () => {
-  it("normalizes all four tag fields", () => {
+  it("normalizes journal tag fields", () => {
     expect(
       normalizeJournalTagArrays({
         energy: [" wired ", "wired"],

@@ -4,9 +4,9 @@ import {
   cycleSettingsService,
   journalEntryService,
 } from "@/lib/services";
-import { formatPhaseLabel } from "@/lib/services/cycle-service";
+import { getCycleDayGuidance } from "@/lib/content/cycle-day-guidance";
+import { formatJournalDate } from "@/lib/date";
 import { buttonVariants } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { JournalEntryForm } from "@/components/forms/journal-entry-form";
 import { journalEntryToFormData } from "@/lib/journal-entry-form-data";
 
@@ -32,52 +32,55 @@ export default async function SeedByDatePage({ params }: Props) {
     entry?.cycleDayOverride
   );
 
+  const cycleLength = settings?.defaultCycleLength ?? 28;
+  const dayGuidance = getCycleDayGuidance(cycleContext.cycleDay, cycleLength);
+
   const formEntry = journalEntryToFormData(
     entry
       ? {
           date: dateParam,
           body: entry.body,
           energy: entry.energy,
-          mood: entry.mood,
           bodySensations: entry.bodySensations,
           themes: entry.themes,
+          mood: entry.mood,
           cycleDayOverride: entry.cycleDayOverride,
         }
       : { date: dateParam }
   );
 
   return (
-    <div className="p-8">
-      <div className="mx-auto max-w-2xl space-y-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-semibold text-foreground">
-            Seed · {dateParam}
-          </h1>
-          <Link href="/seeds" className={buttonVariants({ variant: "ghost" })}>
-            Back to Seeds
+    <div className="px-6 py-8 sm:px-8 sm:py-10">
+      <div className="mx-auto max-w-xl space-y-8">
+        <header className="flex items-start justify-between gap-4">
+          <div className="space-y-2">
+            <h1 className="font-serif text-2xl font-light tracking-tight text-foreground sm:text-3xl">
+              {formatJournalDate(date)}
+            </h1>
+            {settings && cycleContext.cycleDay != null && cycleContext.cyclePhase && (
+              <p className="text-sm text-muted-foreground">
+                day {cycleContext.cycleDay} · {cycleContext.cyclePhase}
+              </p>
+            )}
+          </div>
+          <Link
+            href="/seeds"
+            className={buttonVariants({
+              variant: "ghost",
+              size: "sm",
+              className: "shrink-0 text-muted-foreground",
+            })}
+          >
+            Seeds
           </Link>
-        </div>
+        </header>
 
-        {settings && cycleContext.cycleDay != null && (
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base font-normal text-muted-foreground">
-                Day {cycleContext.cycleDay} ·{" "}
-                {formatPhaseLabel(cycleContext.cyclePhase)}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="text-xs text-muted-foreground">
-              {entry?.cycleDay != null && (
-                <p>
-                  Saved as Day {entry.cycleDay} ·{" "}
-                  {formatPhaseLabel(entry.cyclePhase)}
-                </p>
-              )}
-            </CardContent>
-          </Card>
-        )}
-
-        <JournalEntryForm entry={formEntry} />
+        <JournalEntryForm
+          entry={formEntry}
+          journalPlaceholder={
+            dayGuidance?.journalPrompt ?? "What are you noticing today?"
+          }
+        />
       </div>
     </div>
   );

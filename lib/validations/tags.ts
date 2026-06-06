@@ -22,7 +22,6 @@ export function normalizeTags(tags: string[]): string[] {
 
 export const JOURNAL_TAG_FIELDS = [
   "energy",
-  "mood",
   "bodySensations",
   "themes",
 ] as const;
@@ -31,14 +30,14 @@ export type JournalTagField = (typeof JOURNAL_TAG_FIELDS)[number];
 
 export type JournalTagArrays = Record<JournalTagField, string[]>;
 
-/** Normalize all four journal tag arrays on an object. */
-export function normalizeJournalTagArrays<T extends JournalTagArrays>(
-  data: T
-): T {
+/** Normalize all journal tag arrays on an object. */
+export function normalizeJournalTagArrays<
+  T extends JournalTagArrays & { mood?: string[] },
+>(data: T): T {
   return {
     ...data,
     energy: normalizeTags(data.energy),
-    mood: normalizeTags(data.mood),
+    mood: normalizeTags(data.mood ?? []),
     bodySensations: normalizeTags(data.bodySensations),
     themes: normalizeTags(data.themes),
   };

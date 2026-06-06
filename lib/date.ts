@@ -15,3 +15,12 @@ export function daysBetween(from: Date, to: Date): number {
 export function formatDateISO(d: Date): string {
   return toDateOnly(d).toISOString().slice(0, 10);
 }
+
+/** Long-form date for journal entry headers, e.g. "Saturday, June 6". */
+export function formatJournalDate(d: Date): string {
+  return d.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+  });
+}
