@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "dev:mobile": "next dev --hostname 0.0.0.0",
-    "build": "next build",
+    "postinstall": "prisma generate",
+    "build": "prisma migrate deploy && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "vitest run",
@@ -16,28 +17,29 @@
     "db:studio": "prisma studio"
   },
   "dependencies": {
-    "next": "^15.0.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
     "@prisma/client": "^6.0.0",
-    "zod": "^3.23.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "lucide-react": "^0.460.0",
+    "next": "^15.0.0",
+    "next-auth": "^5.0.0-beta.31",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "tailwind-merge": "^2.5.0",
-    "lucide-react": "^0.460.0"
+    "zod": "^3.23.0"
   },
   "devDependencies": {
-    "typescript": "^5.6.0",
+    "@eslint/eslintrc": "^3.0.0",
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "prisma": "^6.0.0",
-    "postcss": "^8.4.0",
-    "tailwindcss": "^3.4.0",
     "eslint": "^9.0.0",
     "eslint-config-next": "^15.0.0",
-    "@eslint/eslintrc": "^3.0.0",
+    "postcss": "^8.4.0",
+    "prisma": "^6.0.0",
+    "tailwindcss": "^3.4.0",
     "tailwindcss-animate": "^1.0.7",
+    "typescript": "^5.6.0",
     "vitest": "^2.0.0"
   }
 }

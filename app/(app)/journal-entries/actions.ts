@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { parseStringArray } from "@/lib/form";
+import { requireAuth } from "@/lib/require-auth";
 import { journalEntryService } from "@/lib/services/journal-entry-service";
 import { periodStartService } from "@/lib/services/period-start-service";
 
@@ -20,6 +21,7 @@ function parseEntryFromFormData(formData: FormData) {
 }
 
 export async function saveJournalEntry(formData: FormData) {
+  await requireAuth();
   const raw = parseEntryFromFormData(formData);
   const date = raw.date ? new Date(String(raw.date)) : new Date();
   await journalEntryService.upsertForDate(date, {
@@ -37,6 +39,7 @@ export async function saveJournalEntry(formData: FormData) {
 }
 
 export async function logPeriodStartedToday() {
+  await requireAuth();
   await periodStartService.logToday();
   revalidatePath("/today");
   revalidatePath("/settings");

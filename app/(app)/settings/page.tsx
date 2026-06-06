@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import {
   saveCycleSettings,
   logPeriodStartedFromSettings,
+  logout,
 } from "./actions";
 
 export const dynamic = "force-dynamic";
@@ -132,6 +133,23 @@ export default async function SettingsPage() {
             </CardContent>
           </Card>
         )}
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Account</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <p className="text-sm text-muted-foreground">
+              Sign out on this device. You&apos;ll need your password to open
+              the garden again.
+            </p>
+            <form action={logout}>
+              <Button type="submit" variant="outline">
+                Sign out
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
 
         <Link href="/today" className={buttonVariants({ variant: "ghost" })}>
           Back to Today

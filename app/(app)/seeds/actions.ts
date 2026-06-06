@@ -7,10 +7,12 @@ import {
   updateSeedSchema,
   type CreateSeedInput,
 } from "@/lib/validations";
+import { requireAuth } from "@/lib/require-auth";
 import { seedService } from "@/lib/services";
 
 /** Creates today's seed if it doesn't exist, then redirects to edit it. */
 export async function ensureTodaySeed() {
+  await requireAuth();
   const today = new Date();
   const existing = await seedService.findByDate(today);
   if (existing) {
@@ -32,6 +34,7 @@ export async function ensureTodaySeed() {
 }
 
 export async function createSeed(formData: FormData) {
+  await requireAuth();
   const raw = {
     date: formData.get("date") ?? undefined,
     energyLevel: formData.get("energyLevel")
@@ -58,6 +61,7 @@ export async function updateSeed(
   id: string,
   formData: FormData
 ) {
+  await requireAuth();
   const raw = {
     date: formData.get("date") ?? undefined,
     energyLevel: formData.get("energyLevel")
@@ -81,6 +85,7 @@ export async function updateSeed(
 }
 
 export async function deleteSeed(id: string) {
+  await requireAuth();
   await seedService.delete(id);
   revalidatePath("/seeds");
   revalidatePath("/today");

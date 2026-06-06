@@ -16,7 +16,7 @@ A cycle-aware journaling app: daily Seeds (observations), with cycle context and
    ```bash
    npm install
    cp .env.example .env
-   # Edit .env and set DATABASE_URL to your PostgreSQL connection string.
+   # Edit .env: DATABASE_URL, AUTH_SECRET (openssl rand -base64 32), AUTH_PASSWORD
    npm run db:push
    ```
 2. **Run**
@@ -35,7 +35,7 @@ A cycle-aware journaling app: daily Seeds (observations), with cycle context and
 3. On your phone’s browser, open `http://<your-ip>:3000` (e.g. `http://192.168.1.42:3000`).
 4. **Add to Home Screen** (Safari: Share → Add to Home Screen) for an app-like full-screen experience.
 
-For daily use away from home, deploy the app (e.g. Vercel) with a hosted PostgreSQL database (Neon or Supabase).
+For daily use away from home, see **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)** for full deploy steps (Vercel + Neon + auth).
 
 ## Scripts
 
