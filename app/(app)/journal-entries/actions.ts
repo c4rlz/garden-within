@@ -1,0 +1,47 @@
+"use server";
+
+import { revalidatePath } from "next/cache";
+import { parseStringArray } from "@/lib/form";
+import { journalEntryService } from "@/lib/services/journal-entry-service";
+import { periodStartService } from "@/lib/services/period-start-service";
+
+function parseEntryFromFormData(formData: FormData) {
+  const overrideRaw = formData.get("cycleDayOverride");
+  return {
+    date: formData.get("date") ?? undefined,
+    body: formData.get("body") ?? "",
+    energy: parseStringArray(formData.get("energy")),
+    mood: parseStringArray(formData.get("mood")),
+    bodySensations: parseStringArray(formData.get("bodySensations")),
+    themes: parseStringArray(formData.get("themes")),
+    cycleDayOverride: (() => {
+      if (overrideRaw === "" || overrideRaw == null) return null;
+      const n = Number(overrideRaw);
+      return Number.isNaN(n) ? null : n;
+    })(),
+  };
+}
+
+export async function saveJournalEntry(formData: FormData) {
+  const raw = parseEntryFromFormData(formData);
+  const date = raw.date ? new Date(String(raw.date)) : new Date();
+  await journalEntryService.upsertForDate(date, {
+    date,
+    body: String(raw.body ?? ""),
+    energy: raw.energy,
+    mood: raw.mood,
+    bodySensations: raw.bodySensations,
+    themes: raw.themes,
+    cycleDayOverride: raw.cycleDayOverride,
+  });
+  revalidatePath("/today");
+  revalidatePath("/seeds");
+  revalidatePath(`/seeds/${date.toISOString().slice(0, 10)}`);
+}
+
+export async function logPeriodStartedToday() {
+  await periodStartService.logToday();
+  revalidatePath("/today");
+  revalidatePath("/settings");
+  revalidatePath("/seeds");
+}

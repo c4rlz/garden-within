@@ -1,6 +1,6 @@
 # Inner Garden
 
-A private personal reflection app: daily Seeds, weekly Weeks, and Blossoms (insights from weekly reflection).
+A cycle-aware journaling app: daily Seeds (observations), with cycle context and period-start history. Roots and Blossoms are planned for later.
 
 ## Stack
 

@@ -2,21 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Sun,
-  Leaf,
-  CalendarDays,
-  Flower2,
-  FileDown,
-} from "lucide-react";
+import { Sun, Leaf, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const nav = [
   { href: "/today", label: "Today", icon: Sun },
   { href: "/seeds", label: "Seeds", icon: Leaf },
-  { href: "/weeks", label: "Weeks", icon: CalendarDays },
-  { href: "/blossoms", label: "Blossoms", icon: Flower2 },
-  { href: "/import", label: "Import", icon: FileDown },
+  { href: "/settings", label: "Settings", icon: Settings },
 ] as const;
 
 export function AppSidebar() {

@@ -65,3 +65,40 @@ enum BlossomStatus {
   active
   completed
 }
+
+// ——— Cycle: settings + period-start history (Phase 1) ———
+model CycleSettings {
+  id                  String   @id @default("default")
+  lastPeriodStart     DateTime @db.Date
+  defaultCycleLength  Int      @default(28)
+  defaultPeriodLength Int      @default(5)
+  updatedAt           DateTime @updatedAt
+}
+
+model PeriodStart {
+  id        String   @id @default(cuid())
+  date      DateTime @db.Date
+  createdAt DateTime @default(now())
+
+  @@unique([date])
+  @@index([date])
+}
+
+// ——— JournalEntry: cycle-aware daily journal (one per day) ———
+model JournalEntry {
+  id                String   @id @default(cuid())
+  date              DateTime @db.Date
+  body              String   @default("")
+  energy            String[] @default([])
+  mood              String[] @default([])
+  bodySensations    String[] @default([])
+  themes            String[] @default([])
+  cycleDay          Int?
+  cyclePhase        String?
+  cycleDayOverride  Int?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@unique([date])
+  @@index([date])
+}
