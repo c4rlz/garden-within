@@ -1,6 +1,7 @@
 import { getCycleDayGuidance } from "@/lib/content/cycle-day-guidance";
 import { getPhaseGuidance } from "@/lib/content/phase-guidance";
 import { logPeriodStartedToday } from "@/app/(app)/journal-entries/actions";
+import { GardenJournalIllustration } from "@/components/garden-journal-illustration";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -8,11 +9,12 @@ type SeasonOpeningSpreadProps = {
   cycleDay: number | null;
   cyclePhase: string | null;
   cycleLength?: number;
+  periodLength?: number;
   className?: string;
 };
 
 /**
- * Opening spread: seasonal metaphor, day line, and a note unique to this cycle day.
+ * Opening spread: botanical plate, seasonal metaphor, daily note.
  */
 export function SeasonOpeningSpread({
   cycleDay,
@@ -36,41 +38,45 @@ export function SeasonOpeningSpread({
   return (
     <section
       aria-label="Seasonal context"
-      className={cn(
-        "rounded-xl bg-accent/25 px-5 py-5 sm:px-6",
-        className
-      )}
+      className={cn("overflow-hidden rounded-xl border border-border/50", className)}
     >
-      {phaseGuidance && (
-        <p className="font-serif text-lg font-light leading-snug tracking-tight text-foreground/90 sm:text-xl">
-          {phaseGuidance.seasonalMetaphor}
-        </p>
-      )}
+      <GardenJournalIllustration
+        phase={cyclePhase}
+        className="aspect-[3/2] max-h-52 w-full"
+      />
 
-      {hasCycle && (
-        <p className="mt-2 text-sm text-muted-foreground">
-          day {cycleDay} · {cyclePhase}
-        </p>
-      )}
+      <div className="space-y-3 border-t border-border/30 bg-card/80 px-5 py-5 sm:px-6">
+        {phaseGuidance && (
+          <p className="font-serif text-lg font-light leading-snug tracking-tight text-foreground/90 sm:text-xl">
+            {phaseGuidance.seasonalMetaphor}
+          </p>
+        )}
 
-      {dayGuidance && (
-        <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-          {dayGuidance.note}
-        </p>
-      )}
+        {hasCycle && (
+          <p className="text-sm text-muted-foreground">
+            day {cycleDay} · {cyclePhase}
+          </p>
+        )}
 
-      <form action={logPeriodStartedToday} className="mt-4">
-        <button
-          type="submit"
-          className={buttonVariants({
-            variant: "ghost",
-            size: "sm",
-            className: "h-auto px-0 text-muted-foreground hover:text-foreground",
-          })}
-        >
-          Mark today as period start
-        </button>
-      </form>
+        {dayGuidance && (
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            {dayGuidance.note}
+          </p>
+        )}
+
+        <form action={logPeriodStartedToday}>
+          <button
+            type="submit"
+            className={buttonVariants({
+              variant: "ghost",
+              size: "sm",
+              className: "h-auto px-0 text-muted-foreground hover:text-foreground",
+            })}
+          >
+            Mark today as period start
+          </button>
+        </form>
+      </div>
     </section>
   );
 }
