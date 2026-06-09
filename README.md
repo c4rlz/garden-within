@@ -1,6 +1,6 @@
 # Inner Garden
 
-A private personal reflection app: daily Seeds, weekly Weeks, and Blossoms (insights from weekly reflection).
+A cycle-aware journaling app: daily Seeds (observations), with cycle context and period-start history. Roots and Blossoms are planned for later.
 
 ## Stack
 
@@ -16,7 +16,7 @@ A private personal reflection app: daily Seeds, weekly Weeks, and Blossoms (insi
    ```bash
    npm install
    cp .env.example .env
-   # Edit .env and set DATABASE_URL to your PostgreSQL connection string.
+   # Edit .env: DATABASE_URL, AUTH_SECRET (openssl rand -base64 32), AUTH_PASSWORD
    npm run db:push
    ```
 2. **Run**
@@ -24,6 +24,18 @@ A private personal reflection app: daily Seeds, weekly Weeks, and Blossoms (insi
    npm run dev
    ```
    Open [http://localhost:3000](http://localhost:3000); you’ll be redirected to **Today**.
+
+### Use on your phone (same Wi‑Fi)
+
+1. Start the dev server so it accepts LAN connections:
+   ```bash
+   npm run dev:mobile
+   ```
+2. On your Mac, find your local IP (System Settings → Network, or `ipconfig getifaddr en0`).
+3. On your phone’s browser, open `http://<your-ip>:3000` (e.g. `http://192.168.1.42:3000`).
+4. **Add to Home Screen** (Safari: Share → Add to Home Screen) for an app-like full-screen experience.
+
+For daily use away from home, see **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)** for full deploy steps (Vercel + Neon + auth).
 
 ## Scripts
 

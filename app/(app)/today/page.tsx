@@ -1,38 +1,80 @@
 import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { ensureTodaySeed } from "@/app/(app)/seeds/actions";
+import {
+  cycleSettingsService,
+  journalEntryService,
+} from "@/lib/services";
+import { getCycleDayGuidance } from "@/lib/content/cycle-day-guidance";
+import { formatDateISO, formatJournalDate } from "@/lib/date";
+import { buttonVariants } from "@/components/ui/button";
+import { SeasonOpeningSpread } from "@/components/season-opening-spread";
+import { JournalEntryForm } from "@/components/forms/journal-entry-form";
+import { journalEntryToFormData } from "@/lib/journal-entry-form-data";
 
-/**
- * Today — main entry point. Start or edit today's Seed.
- */
-export default function TodayPage() {
+export const dynamic = "force-dynamic";
+
+export default async function TodayPage() {
+  const today = new Date();
+  const todayISO = formatDateISO(today);
+  const settings = await cycleSettingsService.get();
+  const entry = await journalEntryService.findByDate(today);
+  const cycleContext = await journalEntryService.getCycleContextForDate(
+    today,
+    entry?.cycleDayOverride
+  );
+
+  const cycleLength = settings?.defaultCycleLength ?? 28;
+  const dayGuidance = getCycleDayGuidance(cycleContext.cycleDay, cycleLength);
+
+  const formEntry = journalEntryToFormData(
+    entry
+      ? {
+          date: todayISO,
+          body: entry.body,
+          energy: entry.energy,
+          bodySensations: entry.bodySensations,
+          themes: entry.themes,
+          mood: entry.mood,
+          cycleDayOverride: entry.cycleDayOverride,
+        }
+      : { date: todayISO }
+  );
+
   return (
-    <div className="p-8">
-      <div className="mx-auto max-w-2xl space-y-6">
-        <h1 className="text-2xl font-semibold text-foreground">Today</h1>
-        <Card>
-          <CardHeader>
-            <CardTitle>Your daily reflection</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4 text-muted-foreground">
+    <div className="px-6 py-8 sm:px-8 sm:py-10">
+      <div className="mx-auto max-w-xl space-y-8">
+        <header className="space-y-2">
+          <h1 className="font-serif text-2xl font-light tracking-tight text-foreground sm:text-3xl">
+            {formatJournalDate(today)}
+          </h1>
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            Notice what&apos;s here. No need to change it.
+          </p>
+        </header>
+
+        {!settings ? (
+          <div className="space-y-3 text-sm leading-relaxed text-muted-foreground">
             <p>
-              Capture energy, tending, release, assumptions, body check-in, and
-              notes in one place.
+              When you&apos;re ready, add your cycle in Settings so each seed
+              can rest in its season.
             </p>
-            <div className="flex flex-wrap gap-3">
-              <form action={ensureTodaySeed}>
-                <Button type="submit">Start today&apos;s reflection</Button>
-              </form>
-              <Link
-                href="/seeds/today"
-                className={buttonVariants({ variant: "outline", size: "default" })}
-              >
-                Edit today&apos;s seed
-              </Link>
-            </div>
-          </CardContent>
-        </Card>
+            <Link href="/settings" className={buttonVariants({ variant: "outline", size: "sm" })}>
+              Settings
+            </Link>
+          </div>
+        ) : (
+          <SeasonOpeningSpread
+            cycleDay={cycleContext.cycleDay}
+            cyclePhase={cycleContext.cyclePhase}
+            cycleLength={cycleLength}
+          />
+        )}
+
+        <JournalEntryForm
+          entry={formEntry}
+          journalPlaceholder={
+            dayGuidance?.journalPrompt ?? "What are you noticing today?"
+          }
+        />
       </div>
     </div>
   );

@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createWeekSchema, updateWeekSchema } from "@/lib/validations";
+import { requireAuth } from "@/lib/require-auth";
 import { weekService } from "@/lib/services";
 
 function parseStringArray(value: FormDataEntryValue | null): string[] {
@@ -17,6 +18,7 @@ function parseStringArray(value: FormDataEntryValue | null): string[] {
 }
 
 export async function createWeek(formData: FormData) {
+  await requireAuth();
   const raw = {
     weekStart: formData.get("weekStart") ?? undefined,
     strengthenedMe: parseStringArray(formData.get("strengthenedMe")),
@@ -34,6 +36,7 @@ export async function createWeek(formData: FormData) {
 }
 
 export async function updateWeek(id: string, formData: FormData) {
+  await requireAuth();
   const raw = {
     weekStart: formData.get("weekStart") ?? undefined,
     strengthenedMe: parseStringArray(formData.get("strengthenedMe")),
@@ -52,6 +55,7 @@ export async function updateWeek(id: string, formData: FormData) {
 }
 
 export async function deleteWeek(id: string) {
+  await requireAuth();
   await weekService.delete(id);
   revalidatePath("/weeks");
 }

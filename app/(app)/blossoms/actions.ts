@@ -3,9 +3,11 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createBlossomSchema, updateBlossomSchema } from "@/lib/validations";
+import { requireAuth } from "@/lib/require-auth";
 import { blossomService } from "@/lib/services";
 
 export async function createBlossom(formData: FormData) {
+  await requireAuth();
   const raw = {
     weekId: formData.get("weekId") ?? undefined,
     title: formData.get("title") ?? undefined,
@@ -23,6 +25,7 @@ export async function createBlossom(formData: FormData) {
 }
 
 export async function updateBlossom(id: string, formData: FormData) {
+  await requireAuth();
   const raw = {
     title: formData.get("title") ?? undefined,
     description: formData.get("description") ?? undefined,
@@ -39,6 +42,7 @@ export async function updateBlossom(id: string, formData: FormData) {
 }
 
 export async function deleteBlossom(id: string) {
+  await requireAuth();
   await blossomService.delete(id);
   revalidatePath("/blossoms");
 }
