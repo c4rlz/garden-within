@@ -16,7 +16,7 @@ export default auth((req) => {
     return NextResponse.redirect(login);
   }
 
-  if (isLoggedIn && isLogin) {
+  if (isLoggedIn && (isLogin || pathname === "/")) {
     return NextResponse.redirect(new URL("/today", req.nextUrl));
   }
 });
