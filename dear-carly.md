@@ -1,10 +1,60 @@
 # Dear Carly
 
-You left Inner Garden in a good place. Phase 1 works locally; the confusing experiment code from today is gone. Here’s what to focus on when you come back.
+Inner Garden is live on Vercel. Use this file when you come back to the project.
 
 ---
 
-## Start here (5 minutes)
+## You’re live — play with it first
+
+**Don’t rush into building.** Use the app on your phone for a week and notice what feels right.
+
+### Daily rhythm to try
+
+1. Open **Today** in the morning or evening
+2. Read the season card — does the metaphor + daily note land?
+3. Write a few lines in **Journal** (or skip — that’s fine)
+4. Add 0–3 margin words if something stands out (`tired`, `hope`, `work`, etc.)
+5. Tap **Keep this seed**
+6. Later, check **Seeds** to see if past entries feel good to revisit
+
+### Things worth noticing
+
+| Question | What to watch for |
+|----------|-------------------|
+| Is the season card too big / too small? | Garden image height, text density |
+| Does journaling feel inviting? | Textarea size, placeholder prompts, empty-state feel |
+| Are margin tags useful or annoying? | One field vs none vs more structure |
+| Is “Mark period start” in the right place? | Easy to find when you need it? |
+| Bottom nav clear enough? | Today vs Seeds vs Settings |
+
+Jot notes in Apple Notes or here — whatever you’ll actually read later.
+
+### Add to Home Screen (feels more app-like)
+
+In Safari: **Share → Add to Home Screen**. Opens without the browser chrome.
+
+### When you’re ready to tweak UI
+
+Mobile polish lives in:
+
+```
+app/(app)/today/page.tsx
+components/season-opening-spread.tsx
+components/forms/journal-entry-form.tsx
+components/forms/margin-tag-field.tsx
+components/app-mobile-nav.tsx
+```
+
+Prompts and cycle copy (no code deploy needed for copy experiments locally):
+
+```
+lib/content/cycle-day-guidance.ts
+lib/content/phase-guidance.ts
+```
+
+---
+
+## Start here (local dev)
 
 1. **Pull up the app** — `npm run dev` should already work if your `.env` is set. Open http://localhost:3000
 2. **Log in** — password is whatever you put in `AUTH_PASSWORD` in `.env`
@@ -20,22 +70,15 @@ Copy from [.env.example](.env.example) if needed.
 
 ---
 
-## Priority 1 — Get it on your phone
+## Deployed ✓
 
-**This is the main thing.** The app is built for daily use on mobile, but it’s not live yet.
+Live on Vercel + Neon. Redeploy: push to GitHub → Vercel rebuilds automatically.
 
-Follow [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) step by step:
+Stuck locally after `npm run build`? Use `npm run dev:clean` instead of `npm run dev`.
 
-1. **Commit and push** — you have uncommitted cleanup on `garden-init` (deleted SVG experiments, updated `todo.md`). Commit that, then push.
-2. **Neon** — create a free Postgres database, copy the connection string
-3. **Vercel** — import the repo, set env vars *before* first deploy:
-   - `DATABASE_URL` (Neon)
-   - `AUTH_SECRET`
-   - `AUTH_PASSWORD` (pick something strong — this is your only login)
-4. **Deploy** — migrations run on build automatically
-5. **On your phone** — open the Vercel URL, log in, go to Settings and set your cycle length + log a period start
+Full setup notes: [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
 
-**Push trouble?** If GitHub gives HTTP 400 on push (big image files), see the fix in DEPLOYMENT.md (`http.postBuffer` or SSH remote).
+**Hosting costs:** For personal daily use, free tiers should last a long time (likely **$0**). If you ever pay, think **~$1–5/month** (Neon) or **~$20/month** (Vercel Pro, only if commercial or you need stricter uptime). Details: [Costs & limits in DEPLOYMENT.md](docs/DEPLOYMENT.md#costs--limits-free-tiers).
 
 ---
 
@@ -105,14 +148,13 @@ Don’t let these pull you off course until the app is live and you’re using i
 
 ---
 
-## Suggested order when you sit down
+## Suggested order from here
 
-1. Commit the cleanup if you haven’t yet
-2. Deploy (DEPLOYMENT.md)
-3. Use it on your phone for a few days
-4. Add autumn image when you have it
-5. *Then* decide what Phase 2 is (patterns? roots? polish?)
+1. **Use it daily** on your phone (see table above)
+2. **Note what annoys you** — that’s your Phase 2 backlog
+3. Add autumn image when you have it
+4. *Then* pick one thing: more polish, Roots, or “Your patterns”
 
-You’re closer to “actually using this” than “still building.” Ship it first.
+You shipped. Now you get to find out what you actually want.
 
 — past you (and the agent)

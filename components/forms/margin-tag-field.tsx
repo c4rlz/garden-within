@@ -48,24 +48,28 @@ export function MarginTagField({
   };
 
   return (
-    <div className={cn("space-y-2", className)}>
-      <p className="text-sm leading-snug text-muted-foreground">
-        <span className="text-foreground/75">{label}</span>
+    <div className={cn("space-y-2.5", className)}>
+      <div className="space-y-1">
+        <p className="text-sm font-medium text-foreground/85">{label}</p>
         {hint && (
-          <span className="text-muted-foreground/65"> · {hint}</span>
+          <p className="text-xs leading-relaxed text-muted-foreground/75">
+            {hint}
+          </p>
         )}
-      </p>
-      <div className="flex min-h-7 flex-wrap items-center gap-x-2 gap-y-1.5">
+      </div>
+      <div className="flex min-h-9 flex-wrap items-center gap-2">
         {value.map((item, index) => (
           <span
             key={`${item}-${index}`}
-            className="group inline-flex items-baseline gap-1 font-serif text-sm text-foreground/90"
+            className="group inline-flex items-center gap-1.5"
           >
-            <span className="rounded-sm bg-accent/25 px-2 py-0.5">{item}</span>
+            <span className="rounded-full bg-accent/35 px-3 py-1 font-serif text-sm text-foreground/90">
+              {item}
+            </span>
             <button
               type="button"
               onClick={() => remove(index)}
-              className="px-0.5 text-xs leading-none text-muted-foreground/50 transition-colors hover:text-foreground sm:opacity-0 sm:group-hover:opacity-100"
+              className="flex h-8 w-8 items-center justify-center rounded-full text-base leading-none text-muted-foreground/60 transition-colors hover:bg-muted hover:text-foreground sm:h-auto sm:w-auto sm:px-0.5 sm:text-xs sm:hover:bg-transparent"
               aria-label={`Remove ${item}`}
             >
               ×
@@ -79,9 +83,9 @@ export function MarginTagField({
             onChange={(e) => setDraft(e.target.value)}
             onKeyDown={onKeyDown}
             onBlur={() => draft.trim() && add(draft)}
-            placeholder={value.length === 0 ? "…" : ""}
+            placeholder={value.length === 0 ? "Add a word…" : ""}
             aria-label={`Add ${label.toLowerCase()}`}
-            className="min-w-[3rem] flex-1 border-0 bg-transparent py-0.5 font-serif text-sm text-foreground placeholder:text-muted-foreground/35 focus:outline-none focus:ring-0"
+            className="min-w-[6rem] flex-1 border-0 bg-transparent py-1.5 font-serif text-sm text-foreground placeholder:text-muted-foreground/45 focus:outline-none focus:ring-0"
           />
         )}
       </div>

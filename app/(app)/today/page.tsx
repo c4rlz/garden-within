@@ -40,10 +40,10 @@ export default async function TodayPage() {
   );
 
   return (
-    <div className="px-6 py-8 sm:px-8 sm:py-10">
-      <div className="mx-auto max-w-xl space-y-8">
-        <header className="space-y-2">
-          <h1 className="font-serif text-2xl font-light tracking-tight text-foreground sm:text-3xl">
+    <div className="px-5 pb-8 pt-[max(1.75rem,env(safe-area-inset-top))] sm:px-8 sm:py-10">
+      <div className="mx-auto max-w-xl space-y-6 sm:space-y-8">
+        <header className="space-y-1.5 sm:space-y-2">
+          <h1 className="font-serif text-[1.65rem] font-light leading-tight tracking-tight text-foreground sm:text-3xl">
             {formatJournalDate(today)}
           </h1>
           <p className="text-sm leading-relaxed text-muted-foreground">

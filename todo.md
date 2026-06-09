@@ -20,8 +20,14 @@ Deploy: [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
 
 ## Next up
 
-- [ ] Deploy to Vercel + Neon ([docs/DEPLOYMENT.md](docs/DEPLOYMENT.md))
+- [x] Deploy to Vercel + Neon
+- [ ] Use on phone for a week — note what to change (see [dear-carly.md](dear-carly.md))
 - [ ] Add autumn art → `npm run images:optimize -- public/images/garden-autumn.jpg` → map in `lib/garden-images.ts`
+
+## From daily use (Carly, June 2026)
+
+- [ ] **Back-date notes** — add or edit a seed for a past day (e.g. yesterday, two days ago) without only writing “today.” Likely: pick a date from Seeds or Today, open that day’s journal with correct cycle context for that date.
+- [ ] **Speech-to-text** — dictate into the journal field on mobile (and maybe margin tags). Start with browser Web Speech API (`SpeechRecognition`); fallback or polish with native dictation if needed. Privacy: on-device preferred where possible.
 
 ## Parked (post–Phase 1)
 
