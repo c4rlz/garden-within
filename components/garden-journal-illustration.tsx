@@ -2,6 +2,7 @@ import Image from "next/image";
 import { getGardenImageForPhase } from "@/lib/garden-images";
 import { cn } from "@/lib/utils";
 
+/** Phase-aware garden image from public/images/ (see lib/garden-images.ts). */
 type GardenJournalIllustrationProps = {
   phase?: string | null;
   className?: string;

@@ -1,42 +1,36 @@
 # Inner Garden — Tasks
 
-Phase 1 plan: [docs/PHASE1.md](docs/PHASE1.md)
+Phase 1 plan: [docs/PHASE1.md](docs/PHASE1.md)  
+Deploy: [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
 
 ## Get it running
 
-- [ ] Copy `.env.example` to `.env` and set `DATABASE_URL`
-- [ ] Run `npm run db:migrate` after Phase 1 schema changes
+- [ ] Copy `.env.example` to `.env` — set `DATABASE_URL`, `AUTH_SECRET`, `AUTH_PASSWORD`
+- [ ] `npm run db:migrate`
 - [ ] `npm run dev` → http://localhost:3000
 
-## Phase 1 (shipped)
+## Shipped
 
-See [docs/PHASE1.md](docs/PHASE1.md). Implemented:
+- [x] Phase 1: cycle settings, Today, Seeds, journal entries
+- [x] Seasonal garden images (winter / spring / summer; luteal uses `garden-journal.png` for now)
+- [x] Per-day cycle guidance (`lib/content/cycle-day-guidance.ts`)
+- [x] Mobile layout + PWA manifest
+- [x] Password login (single-user, env-based)
+- [x] Deployment guide
 
-- [x] Schema: `CycleSettings` + `PeriodStart`
-- [x] Services: cycle math, period-start log, journal-entry upsert/list
-- [x] Settings page + “Period started today”
-- [x] Today: daily Seed (`JournalEntry`) with stored cycle context
-- [x] Seeds: history list + `/seeds/[date]` edit
-- [x] Nav: Today, Seeds, Settings only
+## Next up
+
+- [ ] Deploy to Vercel + Neon ([docs/DEPLOYMENT.md](docs/DEPLOYMENT.md))
+- [ ] Add `public/images/garden-autumn.png` for luteal phase → map in `lib/garden-images.ts`
 
 ## Parked (post–Phase 1)
 
-### Personalized trends (“Your patterns”) — not yet
+### Personalized trends — not yet
 
-Today shows **generic phase guidance** only (`lib/content/phase-guidance.ts`).
-
-**Future direction (after enough `JournalEntry` rows):**
-
-- Keep generic guidance as the default layer on Today
-- Add a second, optional block: **“Your patterns”** — derived from the user’s own tags/themes per phase
-- Example copy: *“In your luteal phase, solitude has appeared often.”*
-- No AI, no dashboards — simple aggregation over stored entries (e.g. tag frequency by `cyclePhase`)
-- Gate on a minimum entry count so early users aren’t shown thin or misleading trends
-
-**Do not implement aggregation until Roots/pattern work is scoped.**
+Generic phase guidance + per-day notes only. Future: “Your patterns” from tag frequency by phase (see `lib/content/phase-guidance.ts` TODO).
 
 - [ ] Roots — phase/week views, repeated tags
-- [ ] Blossoms — named patterns (no goals/priority)
-- [ ] Legacy `Seed` / `Week` / `Blossom` UI and data decisions
+- [ ] Blossoms — named patterns
+- [ ] Legacy `Seed` / `Week` / `Blossom` UI decisions
 - [ ] Recompute historical `cycleDay` when period history changes
-- [ ] Auth, import, validation error UI, delete flows
+- [ ] Import, validation error UI, delete flows

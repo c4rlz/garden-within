@@ -9,12 +9,11 @@ type SeasonOpeningSpreadProps = {
   cycleDay: number | null;
   cyclePhase: string | null;
   cycleLength?: number;
-  periodLength?: number;
   className?: string;
 };
 
 /**
- * Opening spread: botanical plate, seasonal metaphor, daily note.
+ * Opening spread: seasonal garden image, metaphor, and daily note.
  */
 export function SeasonOpeningSpread({
   cycleDay,

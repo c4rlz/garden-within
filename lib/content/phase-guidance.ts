@@ -80,10 +80,6 @@ export const PHASE_GUIDANCE: Record<CyclePhase, PhaseGuidance> = {
   },
 };
 
-/** Observational disclaimer shown alongside phase copy in the UI. */
-export const PHASE_GUIDANCE_DISCLAIMER =
-  "These are gentle observations, not rules. Your experience may differ day to day.";
-
 /** Look up guidance for a stored or computed phase string. */
 export function getPhaseGuidance(
   phase: string | null | undefined

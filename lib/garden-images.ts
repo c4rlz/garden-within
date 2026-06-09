@@ -7,14 +7,15 @@ export type GardenImage = {
   height: number;
 };
 
+/** Luteal + fallback until garden-autumn.png exists. */
 const DEFAULT: GardenImage = {
   src: "/images/garden-journal.png",
-  alt: "Watercolor garden with trellis, stone path, tree, birdbath, and harvest basket",
+  alt: "Autumn garden with trellis, stone path, tree, birdbath, and harvest basket",
   width: 1024,
   height: 682,
 };
 
-/** Seasonal garden plates — add autumn asset when ready. */
+/** Seasonal garden images in public/images/. */
 const BY_PHASE: Partial<Record<CyclePhase, GardenImage>> = {
   menstrual: {
     src: "/images/garden-winter.png",
@@ -34,6 +35,7 @@ const BY_PHASE: Partial<Record<CyclePhase, GardenImage>> = {
     width: 1024,
     height: 682,
   },
+  // luteal: add garden-autumn.png when ready
 };
 
 export function getGardenImageForPhase(
