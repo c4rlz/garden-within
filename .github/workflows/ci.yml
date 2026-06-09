@@ -9,6 +9,20 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: pass
+          POSTGRES_DB: ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U user -d ci"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - uses: actions/checkout@v4
 
@@ -30,5 +44,6 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          # Required for Prisma client; build uses dynamic routes so DB is not contacted
           DATABASE_URL: "postgresql://user:pass@localhost:5432/ci?schema=public"
+          AUTH_SECRET: "ci-build-secret-not-used-at-runtime"
+          AUTH_PASSWORD: "ci-build-password"
