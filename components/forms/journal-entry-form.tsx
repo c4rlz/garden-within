@@ -26,39 +26,37 @@ export function JournalEntryForm({
   );
 
   return (
-    <form action={saveJournalEntry} className="space-y-8">
+    <form action={saveJournalEntry} className="space-y-6 sm:space-y-8">
       <input type="hidden" name="date" value={entry.date} />
       <input type="hidden" name="margins" value={JSON.stringify(margins)} />
 
-      <section className="space-y-3">
-        <h2 className="font-normal text-base text-foreground/90">Journal</h2>
+      <section className="space-y-2.5">
+        <h2 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+          Journal
+        </h2>
         <textarea
           name="body"
-          rows={8}
+          rows={6}
           value={body}
           onChange={(e) => setBody(e.target.value)}
           placeholder={journalPlaceholder}
-          className="min-h-[11rem] w-full resize-y border-0 border-b border-border/50 bg-transparent px-0 py-2 font-serif text-base leading-loose text-foreground placeholder:text-muted-foreground/70 focus-visible:border-border focus-visible:outline-none focus-visible:ring-0"
+          className="min-h-[10rem] w-full resize-y rounded-2xl border border-border/50 bg-card/80 px-4 py-3.5 font-serif text-[1.0625rem] leading-relaxed text-foreground shadow-sm placeholder:text-muted-foreground/60 focus-visible:border-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30 sm:min-h-[11rem] sm:bg-card/60 sm:px-5 sm:py-4"
         />
       </section>
 
-      <section className="space-y-4 border-t border-border/30 pt-7">
+      <section className="space-y-3 rounded-2xl border border-border/40 bg-card/40 px-4 py-4 sm:bg-transparent sm:px-0 sm:py-0 sm:border-0">
         <MarginTagField
           label="What stands out today?"
-          hint="tension, love, work, fatigue, hope"
+          hint="tension, love, work, fatigue, hope — type and press return"
           value={margins}
           onChange={setMargins}
         />
-        <p className="text-sm text-muted-foreground/75">
-          Optional — a few words in the margin. Type and press return.
-        </p>
       </section>
 
-      <div className="space-y-4 border-t border-border/40 pt-6">
+      <div className="space-y-4 border-t border-border/40 pt-5 sm:pt-6">
         <Button
           type="submit"
-          variant="outline"
-          className="h-11 w-full bg-card/50 sm:w-auto"
+          className="h-12 w-full rounded-xl text-[0.9375rem] sm:h-11 sm:w-auto"
         >
           Keep this seed
         </Button>
@@ -67,7 +65,7 @@ export function JournalEntryForm({
           <button
             type="button"
             onClick={() => setShowOverride((v) => !v)}
-            className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+            className="min-h-10 text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
             {showOverride ? "Hide cycle day adjustment" : "Adjust cycle day"}
           </button>

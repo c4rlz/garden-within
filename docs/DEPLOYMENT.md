@@ -160,6 +160,62 @@ Each deploy runs migrations again if there are new ones in `prisma/migrations/`.
 
 ---
 
+## Costs & limits (free tiers)
+
+Inner Garden is a **single-user personal journal**. On that scale, both free tiers are generous — you may never need to pay.
+
+> Limits change over time. Check [Vercel Hobby](https://vercel.com/docs/plans/hobby) and [Neon Free](https://neon.com/pricing) for the latest numbers.
+
+### Will I hit the free tier?
+
+| Service | Main free limits | Your realistic usage |
+|---------|------------------|----------------------|
+| **Vercel Hobby** | ~1M requests/month, 100 GB bandwidth | A few hundred page loads/month |
+| **Neon Free** | 0.5 GB storage, 100 compute-hours/month | A few KB per journal entry; DB sleeps when idle |
+
+For daily personal use, you are **nowhere near** these caps. Storage alone could hold **years** of entries before 0.5 GB matters.
+
+### When would I need to pay?
+
+| Reason | Likely cost |
+|--------|-------------|
+| Stay free (personal, non-commercial) | **$0** — most likely for you |
+| Neon: exceed monthly compute/storage cap | DB pauses until next month, or upgrade to **Launch** (~$1–5/month usage-based) |
+| Vercel: commercial use or need guaranteed uptime | **Pro ~$20/month** (Hobby pauses instead of billing overages) |
+| Both upgraded | **~$20–25/month** |
+
+**Vercel Hobby** is for personal, non-commercial projects only. A private journal you don’t charge for is fine.
+
+**Neon cold starts:** After ~5 minutes idle, the database scales to zero. The first request after that may take a second or two to wake up — normal for a journal you open a few times a day.
+
+### What to check occasionally
+
+Once a quarter (optional):
+
+1. [Vercel dashboard](https://vercel.com) → **Usage**
+2. [Neon dashboard](https://neon.tech) → **Storage** and **Compute**
+
+Both will probably look nearly empty for a long time.
+
+### Is this the right stack?
+
+For Inner Garden, **yes**:
+
+- Already built and deployed (Next.js + Prisma + Postgres)
+- Low maintenance — push to GitHub, Vercel redeploys
+- Matches the scale — one person, small data, mobile-first
+
+**Alternatives** only matter if priorities change:
+
+| If you want… | Consider… |
+|--------------|-------------|
+| $0 forever, more DIY | Small VPS (~$5/month) + self-hosted Postgres — more ops work |
+| Simpler DB hosting | Supabase free — but projects **pause after 7 days idle**, awkward for a sporadic journal |
+
+No need to switch unless costs, uptime, or features push you there.
+
+---
+
 ## Troubleshooting
 
 ### Build fails: Prisma / `DATABASE_URL`

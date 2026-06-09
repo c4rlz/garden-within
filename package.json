@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:clean": "rm -rf .next && next dev",
     "dev:mobile": "next dev --hostname 0.0.0.0",
     "postinstall": "prisma generate",
     "build": "prisma migrate deploy && next build",
@@ -14,7 +15,8 @@
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "images:optimize": "bash scripts/optimize-garden-images.sh"
   },
   "dependencies": {
     "@prisma/client": "^6.0.0",
