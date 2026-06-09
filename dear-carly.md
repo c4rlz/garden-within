@@ -41,19 +41,20 @@ Follow [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) step by step:
 
 ## Priority 2 — Autumn garden image
 
-Luteal phase still uses `garden-journal.png` as a stand-in. When you have autumn art:
+Luteal phase still uses `garden-journal.webp` as a stand-in. When you have autumn art:
 
-1. Add `public/images/garden-autumn.png`
-2. Map `luteal` in [lib/garden-images.ts](lib/garden-images.ts) (there’s a comment where to add it)
+1. Drop the source file in `public/images/` (jpg or png)
+2. Run `npm run images:optimize -- public/images/garden-autumn.jpg`
+3. Map `luteal` in [lib/garden-images.ts](lib/garden-images.ts)
 
-Winter / spring / summer are already wired:
+Winter / spring / summer are already wired (WebP, ~70–130 KB each):
 
-| Phase      | Image                    |
-|------------|--------------------------|
-| menstrual  | `garden-winter.png`      |
-| follicular | `garden-spring.png`      |
-| ovulation  | `garden-summer.png`      |
-| luteal     | `garden-journal.png` ← swap when ready |
+| Phase      | Image                     |
+|------------|---------------------------|
+| menstrual  | `garden-winter.webp`      |
+| follicular | `garden-spring.webp`      |
+| ovulation  | `garden-summer.webp`      |
+| luteal     | `garden-journal.webp` ← swap when ready |
 
 ---
 

@@ -12,7 +12,7 @@ Deploy: [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
 ## Shipped
 
 - [x] Phase 1: cycle settings, Today, Seeds, journal entries
-- [x] Seasonal garden images (winter / spring / summer; luteal uses `garden-journal.png` for now)
+- [x] Seasonal garden images (WebP, 768px; luteal uses `garden-journal.webp` for now)
 - [x] Per-day cycle guidance (`lib/content/cycle-day-guidance.ts`)
 - [x] Mobile layout + PWA manifest
 - [x] Password login (single-user, env-based)
@@ -21,7 +21,7 @@ Deploy: [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
 ## Next up
 
 - [ ] Deploy to Vercel + Neon ([docs/DEPLOYMENT.md](docs/DEPLOYMENT.md))
-- [ ] Add `public/images/garden-autumn.png` for luteal phase → map in `lib/garden-images.ts`
+- [ ] Add autumn art → `npm run images:optimize -- public/images/garden-autumn.jpg` → map in `lib/garden-images.ts`
 
 ## Parked (post–Phase 1)
 

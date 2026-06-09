@@ -26,6 +26,7 @@ export function GardenJournalIllustration({
         alt={image.alt}
         width={image.width}
         height={image.height}
+        sizes="(max-width: 576px) 100vw, 576px"
         className="h-full w-full object-cover object-[center_42%]"
         priority
       />
