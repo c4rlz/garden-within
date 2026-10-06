@@ -1,6 +1,6 @@
-# Deploying Inner Garden
+# Deploying Garden Within
 
-Step-by-step guide to put Inner Garden on the internet so you can use it on your phone from anywhere.
+Step-by-step guide to put Garden Within on the internet so you can use it on your phone from anywhere.
 
 **Stack:** [Vercel](https://vercel.com) (app) + [Neon](https://neon.tech) (PostgreSQL)
 
@@ -55,7 +55,7 @@ git push -u origin main
 ## Step 2 — Create a Neon database
 
 1. Go to [neon.tech](https://neon.tech) and sign up.
-2. **New Project** — name it e.g. `inner-garden`, pick a region close to you.
+2. **New Project** — name it e.g. `garden-within`, pick a region close to you.
 3. Open the project → **Dashboard** → **Connect**.
 4. Copy the **connection string** (PostgreSQL).  
    It should look like:
@@ -162,7 +162,7 @@ Each deploy runs migrations again if there are new ones in `prisma/migrations/`.
 
 ## Costs & limits (free tiers)
 
-Inner Garden is a **single-user personal journal**. On that scale, both free tiers are generous — you may never need to pay.
+Garden Within is a **single-user personal journal**. On that scale, both free tiers are generous — you may never need to pay.
 
 > Limits change over time. Check [Vercel Hobby](https://vercel.com/docs/plans/hobby) and [Neon Free](https://neon.com/pricing) for the latest numbers.
 
@@ -199,7 +199,7 @@ Both will probably look nearly empty for a long time.
 
 ### Is this the right stack?
 
-For Inner Garden, **yes**:
+For Garden Within, **yes**:
 
 - Already built and deployed (Next.js + Prisma + Postgres)
 - Low maintenance — push to GitHub, Vercel redeploys

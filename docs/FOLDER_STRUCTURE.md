@@ -1,4 +1,4 @@
-# Inner Garden — Folder Structure
+# Garden Within — Folder Structure
 
 This document describes the intended layout and responsibilities. Kept minimal so a solo dev can navigate quickly.
 

@@ -1,4 +1,4 @@
-// Inner Garden — Prisma schema
+// Garden Within — Prisma schema
 // PostgreSQL. List fields use native array type for simplicity and good Prisma support.
 
 generator client {
@@ -101,4 +101,11 @@ model JournalEntry {
 
   @@unique([date])
   @@index([date])
+}
+
+// ——— LoginAttempt: failed-login counter per client, for rate limiting ———
+model LoginAttempt {
+  key         String   @id
+  count       Int      @default(0)
+  windowStart DateTime @default(now())
 }

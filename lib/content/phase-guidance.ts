@@ -5,7 +5,7 @@
  * After sufficient JournalEntry history, Today may also show "Your patterns"
  * below this content — e.g. "In your luteal phase, solitude has appeared often."
  * Generic guidance stays first; personal trends are additive and threshold-gated.
- * See todo.md → "Personalized trends".
+ * See README → Roadmap.
  */
 import type { CyclePhase } from "@/lib/services/cycle-service";
 

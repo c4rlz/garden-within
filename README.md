@@ -1,8 +1,44 @@
-# Inner Garden
+# Garden Within
 
-A cycle-aware journaling app: daily Seeds (observations), with cycle context and period-start history. Roots and Blossoms are planned for later.
+A cycle-aware journal for daily reflection. Each day opens with a seasonal garden and a short note shaped by where you are in your cycle, then gives you one quiet question: *what stands out today?*
 
-## Technology
+I built it for myself and use it daily on my phone. It's live at **[garden-within.vercel.app](https://garden-within.vercel.app)** (single-user, so it's password-protected).
+
+<!-- Screenshots: add phone captures to docs/screenshots/ and uncomment.
+<p>
+  <img src="docs/screenshots/today.png" width="240" alt="Today page with seasonal garden and journal prompt">
+  <img src="docs/screenshots/seeds.png" width="240" alt="Seeds history list">
+  <img src="docs/screenshots/settings.png" width="240" alt="Cycle settings">
+</p>
+-->
+
+## Features
+
+- **Today:** date, cycle day and phase, a seasonal garden image (winter, spring, summer for menstrual, follicular, ovulation) and a per-day prompt for all 28 days
+- **Seeds:** one journal entry per day, with "margin" tags, browsable and editable by date
+- **Cycle tracking:** cycle settings, period-start history, and a manual cycle-day override
+- **Mobile-first PWA:** bottom nav, safe-area handling, Add to Home Screen
+
+## Engineering notes
+
+- **Thin server actions, real services.** Mutations are Next.js Server Actions that only parse input and call `lib/services`. Business logic never lives in a route, so a future API can reuse the same layer. See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+- **Cycle math as pure functions.** Cycle day, phase and the active period start are computed in `lib/services/cycle-service.ts` with no I/O, and unit-tested. Each entry stores the cycle context it was written in, so history doesn't shift when settings change.
+- **One schema, two jobs.** Zod schemas in `lib/validations` validate every write and type the inputs.
+- **Evolving the data model without a migration.** When the journal moved from four tag categories to a single margins field, old entries are merged at read time (`lib/journal-entry-form-data.ts`) instead of rewritten.
+- **Login hardening.** Constant-time password comparison, plus a Postgres-backed failed-login limit (5 per 15 minutes per client). It's stored in the database because serverless instances don't share memory, and it's enforced inside `authorize()` so it also covers direct calls to the Auth.js endpoint.
+- **CI against real Postgres.** GitHub Actions runs lint, Vitest and a full production build (including migrations) against a Postgres 16 service.
+
+## Roadmap
+
+Parked until daily use says otherwise:
+
+- **Back-dating:** add or edit an entry for a past day, with the right cycle context for that date
+- **Dictation:** speech-to-text in the journal field (Web Speech API first)
+- **Roots and Blossoms:** weekly views and named patterns. The `Week` and `Blossom` models and routes exist from an earlier iteration but aren't in the nav yet.
+- **Your patterns:** tag frequency by phase, replacing the generic phase guidance
+- **Autumn art** for the luteal phase, which currently uses a stand-in image
+
+## Stack
 
 ### Application
 

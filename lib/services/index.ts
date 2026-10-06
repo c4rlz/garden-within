@@ -5,3 +5,4 @@ export { cycleSettingsService } from "./cycle-settings-service";
 export { periodStartService } from "./period-start-service";
 export { journalEntryService } from "./journal-entry-service";
 export * from "./cycle-service";
+export { loginAttemptService } from "./login-attempt-service";
