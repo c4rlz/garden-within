@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Inner Garden",
+    name: "Garden Within",
     short_name: "Garden",
     description: "A private space for daily reflection.",
     start_url: "/today",
