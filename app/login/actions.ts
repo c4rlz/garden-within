@@ -1,6 +1,6 @@
 "use server";
 
-import { AuthError } from "next-auth";
+import { AuthError, CredentialsSignin } from "next-auth";
 import { redirect } from "next/navigation";
 import { signIn } from "@/auth";
 
@@ -16,6 +16,9 @@ export async function login(formData: FormData) {
       redirectTo: "/today",
     });
   } catch (error) {
+    if (error instanceof CredentialsSignin && error.code === "locked") {
+      redirect("/login?error=locked");
+    }
     if (error instanceof AuthError && error.type === "CredentialsSignin") {
       redirect("/login?error=invalid");
     }

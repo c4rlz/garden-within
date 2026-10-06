@@ -14,14 +14,16 @@ export default async function LoginPage({ searchParams }: Props) {
       ? "That password didn’t match."
       : error === "missing"
         ? "Enter your password."
-        : null;
+        : error === "locked"
+          ? "Too many attempts. Try again in 15 minutes."
+          : null;
 
   return (
     <div className="flex min-h-screen min-h-[100dvh] items-center justify-center bg-background px-6">
       <div className="w-full max-w-sm space-y-8">
         <header className="space-y-2 text-center">
           <h1 className="font-serif text-2xl font-light tracking-tight text-foreground">
-            Inner Garden
+            Garden Within
           </h1>
           <p className="text-sm leading-relaxed text-muted-foreground">
             Your private journal. Enter your password to continue.
