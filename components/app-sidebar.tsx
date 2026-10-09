@@ -18,7 +18,7 @@ export function AppSidebar() {
     <aside className="hidden w-56 flex-col border-r border-border bg-card md:flex">
       <div className="flex h-16 items-center border-b border-border px-6">
         <Link href="/today" className="font-medium text-foreground">
-          Garden Within
+          Inner Seasons
         </Link>
       </div>
       <nav className="flex flex-1 flex-col gap-0.5 p-3">
