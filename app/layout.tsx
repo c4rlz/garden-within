@@ -2,13 +2,13 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Garden Within",
+  title: "Inner Seasons",
   description: "A private space for daily and weekly reflection.",
-  applicationName: "Garden Within",
+  applicationName: "Inner Seasons",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Garden Within",
+    title: "Inner Seasons",
   },
   formatDetection: {
     telephone: false,

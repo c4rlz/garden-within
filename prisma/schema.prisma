@@ -1,4 +1,4 @@
-// Garden Within — Prisma schema
+// Inner Seasons — Prisma schema
 // PostgreSQL. List fields use native array type for simplicity and good Prisma support.
 
 generator client {

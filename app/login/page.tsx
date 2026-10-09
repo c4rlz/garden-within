@@ -23,7 +23,7 @@ export default async function LoginPage({ searchParams }: Props) {
       <div className="w-full max-w-sm space-y-8">
         <header className="space-y-2 text-center">
           <h1 className="font-serif text-2xl font-light tracking-tight text-foreground">
-            Garden Within
+            Inner Seasons
           </h1>
           <p className="text-sm leading-relaxed text-muted-foreground">
             Your private journal. Enter your password to continue.

@@ -1,6 +1,6 @@
-# Deploying Garden Within
+# Deploying Inner Seasons
 
-Step-by-step guide to put Garden Within on the internet so you can use it on your phone from anywhere.
+Step-by-step guide to put Inner Seasons on the internet so you can use it on your phone from anywhere.
 
 **Stack:** [Vercel](https://vercel.com) (app) + [Neon](https://neon.tech) (PostgreSQL)
 
@@ -46,7 +46,7 @@ git push -u origin main
 Or switch the remote to SSH:
 
 ```bash
-git remote set-url origin git@github.com:c4rlz/garden-within.git
+git remote set-url origin git@github.com:c4rlz/inner-seasons.git
 git push -u origin main
 ```
 
@@ -55,7 +55,7 @@ git push -u origin main
 ## Step 2 — Create a Neon database
 
 1. Go to [neon.tech](https://neon.tech) and sign up.
-2. **New Project** — name it e.g. `garden-within`, pick a region close to you.
+2. **New Project** — name it e.g. `inner-seasons`, pick a region close to you.
 3. Open the project → **Dashboard** → **Connect**.
 4. Copy the **connection string** (PostgreSQL).  
    It should look like:
@@ -74,7 +74,7 @@ Neon starts empty. Migrations run automatically during the Vercel build (see Ste
 
 1. Go to [vercel.com](https://vercel.com) and sign in with **GitHub**.
 2. **Add New… → Project**.
-3. Import **`c4rlz/garden-within`** (or your fork).
+3. Import **`c4rlz/inner-seasons`** (or your fork).
 4. **Do not deploy yet** — add environment variables first (Step 4).
 
 Default settings are fine:
@@ -109,7 +109,7 @@ Click **Save**, then trigger **Deploy** (or redeploy if you already deployed wit
 ## Step 5 — Deploy and verify
 
 1. Vercel → **Deployments** → wait for the build to finish (green).
-2. Open the deployment URL (e.g. `https://garden-within.vercel.app`).
+2. Open the deployment URL (e.g. `https://innerseasons.vercel.app`).
 3. You should see the **login** page.
 4. Enter `AUTH_PASSWORD`.
 5. Go to **Settings** and enter your cycle info (last period start, cycle length, period length).
@@ -162,7 +162,7 @@ Each deploy runs migrations again if there are new ones in `prisma/migrations/`.
 
 ## Costs & limits (free tiers)
 
-Garden Within is a **single-user personal journal**. On that scale, both free tiers are generous — you may never need to pay.
+Inner Seasons is a **single-user personal journal**. On that scale, both free tiers are generous — you may never need to pay.
 
 > Limits change over time. Check [Vercel Hobby](https://vercel.com/docs/plans/hobby) and [Neon Free](https://neon.com/pricing) for the latest numbers.
 
@@ -199,7 +199,7 @@ Both will probably look nearly empty for a long time.
 
 ### Is this the right stack?
 
-For Garden Within, **yes**:
+For Inner Seasons, **yes**:
 
 - Already built and deployed (Next.js + Prisma + Postgres)
 - Low maintenance — push to GitHub, Vercel redeploys

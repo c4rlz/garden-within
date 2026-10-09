@@ -1,8 +1,8 @@
-# Garden Within
+# Inner Seasons
 
 A cycle-aware journal for daily reflection. Each day opens with a seasonal garden and a short note shaped by where you are in your cycle, then gives you one quiet question: *what stands out today?*
 
-I built it for myself and use it daily on my phone. It's live at **[garden-within.vercel.app](https://garden-within.vercel.app)** (single-user, so it's password-protected).
+I built it for myself and use it daily on my phone. It's live at **[innerseasons.vercel.app](https://innerseasons.vercel.app)** (single-user, so it's password-protected).
 
 <!-- Screenshots: add phone captures to docs/screenshots/ and uncomment.
 <p>

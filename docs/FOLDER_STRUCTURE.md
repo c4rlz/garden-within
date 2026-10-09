@@ -1,11 +1,11 @@
-# Garden Within — Folder Structure
+# Inner Seasons — Folder Structure
 
 This document describes the intended layout and responsibilities. Kept minimal so a solo dev can navigate quickly.
 
 ## Root layout
 
 ```
-garden-within/
+inner-seasons/
 ├── app/                    # Next.js App Router
 │   ├── (app)/              # Main app group (sidebar layout)
 │   │   ├── layout.tsx      # Sidebar + main content area
